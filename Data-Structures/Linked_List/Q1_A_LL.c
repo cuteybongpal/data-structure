@@ -71,7 +71,7 @@ int main()
 		case 3:
 			printf("The resulting sorted linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			//removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -90,7 +90,46 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	//노드 생성
+	ListNode *node = (ListNode*)malloc(sizeof(ListNode));
+	//값 넣어주기
+	node->item = item;
+	//LinkedList의 요소가 하나도 없다면, 바로 헤드에 값을 추가 해주고, 흐름을 끊어줌(return)
+	if (ll->head == NULL)
+	{
+		ll->head = node;
+		ll->size += 1;
+		return 0;
+	}
+	ListNode *prevNode = NULL;
+	ListNode *curNode = ll->head;
+	int idx = 0;
+	//이제 LinkedList의 헤드 요소부터 검사를 함.
+	while (curNode != NULL)
+	{
+		//현재 선택된 노드의 값이 넣을 노드의 값보다 크다면 넣어줌
+		if (curNode->item > node->item)
+		{
+			if (prevNode != NULL)
+				prevNode->next = node;
+			//전 값이 0일때, 즉 삽입할 인덱스가 0일때 헤드값을 바꿔줌
+			else
+				ll->head = node;
+			node->next = curNode;
+			ll->size += 1;
+			return idx;
+		}
+		if (curNode->item == node->item)
+			return -1;
+		//전 값을 현재 선택된 노드로 바꿔주고, 현재 값을 다음 값으로 바꿔줌
+		prevNode = curNode;
+		curNode = curNode->next;
+		idx += 1;
+	}
+	//만약 중간에 값을 삽입하지 못했다면 마지막 요소의 next를 node를 넣어준다.
+	prevNode->next = node;
+	ll->size += 1;
+	return idx;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

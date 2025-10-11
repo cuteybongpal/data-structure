@@ -8,7 +8,7 @@ Purpose: Implementing the required functions for Question 2 */
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#define min(x, y) (x) < (y) ? (x) : (y)
 //////////////////////////////////////////////////////////////////////////////////
 
 typedef struct _listnode
@@ -103,7 +103,48 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+	if (ll2->head == NULL)
+		return;
+
+	if (ll1->head == NULL)
+		return;
+	
+	LinkedList temp;
+	temp.size = 0;
+	temp.head = NULL;
+	
+	ListNode* cur = NULL;
+	ListNode* end = NULL;
+
+	int m = min(ll1->size, ll2->size);
+
+	for (int i = 0; i < 2 * m; i++)
+	{
+		if (i % 2 == 0)
+		{
+			cur = ll1->head;
+			ll1->head = ll1->head->next;
+		}
+		else
+		{
+			cur = ll2->head;
+			ll2->head = ll2->head->next;
+			ll2->size -= 1;
+		}
+		cur->next = NULL;
+		if (temp.size == 0)
+		{
+			temp.head = cur;
+			temp.size = 1;
+			end = temp.head;
+			continue;
+		}
+		end->next = cur;
+		end = end->next;
+	}
+	end->next = ll1->head;
+	temp.size = ll1->size + m;
+	*ll1 = temp;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -127,6 +168,7 @@ void printList(LinkedList *ll){
 
 
 void removeAllItems(LinkedList *ll)
+
 {
 	ListNode *cur = ll->head;
 	ListNode *tmp;

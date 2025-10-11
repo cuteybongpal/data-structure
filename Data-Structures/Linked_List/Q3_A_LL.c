@@ -86,7 +86,37 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	ListNode* tmp = NULL;
+	ListNode* cur = NULL;
+	//모든 원소를 한번씩만 체크함
+	for(int i = 0; i < ll->size; i++)
+	{
+		//tmp가 NULL일때, 즉 찾아볼 값이 첫번째 원소일때, cur를 헤드로 바꿔줌
+		if (tmp == NULL)
+			cur = ll->head;
+		else
+			cur = tmp->next;
+		//cur의 item이 짝수일때, tmp를 cur로 바꾸고, 흐름 끊어주기(continue)
+		if (cur->item % 2 == 0)
+		{
+			tmp = cur;
+			continue;
+		}
+		//cur의 item이 홀수일때, 마지막 원소로 바꿔줌.
+		ListNode* l = cur;
+		while (l->next != NULL)
+			l = l->next;
+		//홀수인 값이 ll의 첫번째 값일 경우, head만 cur의 다음 값으로 바꿔주고,
+		//아닌 경우에는 tmp의 다음 값을 cur의 다음값으로 바꿔준다.
+		if (tmp != NULL)
+			tmp->next = cur->next;
+		else
+			ll->head = cur->next;
+		//마지막 원소의 next를 cur로 바꿔줌.
+		l->next = cur;
+		//cur의 next값을 없애줘서, 흐름을 끊어줌.
+		cur->next = NULL;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
