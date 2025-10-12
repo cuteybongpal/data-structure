@@ -34,6 +34,7 @@ void removeAllItems(LinkedList *ll);
 ListNode * findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
+void Recursision(ListNode* prev, ListNode* cur);
 
 
 //////////////////////////// main() //////////////////////////////////////////////
@@ -87,9 +88,27 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead)
 {
-	/* add your code here */
-}
+	ListNode* lastNode = *ptrHead;
 
+	while (lastNode->next != NULL)
+	{
+		lastNode = lastNode->next;
+	}
+	//각각의 원소가 가르키는 next값을 반전시켜줌.
+	Recursision(NULL, *ptrHead);
+	//head의 next값을 node의 마지막 값으로 바꿔줌.
+	*ptrHead = lastNode;
+}
+void Recursision(ListNode* prev, ListNode* cur)
+{
+	//기저 조건 cur가 NULL이면 재귀 중단
+	if (cur == NULL)
+		return;
+	//재귀. prev를 현재 탐색중인 노드로 바꾸고, cur를 탐색중인 노드의 다음 노드로 바꿔줌.
+	Recursision(cur, cur->next);
+	//next의 값을 전 노드로 바꿔줌.
+	cur->next = prev;
+}
 //////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){
