@@ -112,7 +112,24 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	//로컬 변수 스택 생성
+	Stack s;
+	s.ll.size = 0;
+	s.ll.head = NULL;
+	s.ll.tail = NULL;
+	//큐의 원소의 개수가 0이 될때까지 dequeue해준 후, 나온 원소들을 모두 스택에 넣음.
+	while (isEmptyQueue(q) == 0)
+	{
+		int item = dequeue(q);
+		push(&s, item);
+	}
+	//스택의 원소의 개수가 0이 될때까지 pop해준 후, 나온 원소들을 모두 스택에 넣음
+	while(isEmptyStack(&s) == 0)
+	{
+		int item = pop(&s);
+		enqueue(q, item);
+	}
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

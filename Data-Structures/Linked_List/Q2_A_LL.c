@@ -103,6 +103,7 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
+	
 	if (ll2->head == NULL)
 		return;
 
