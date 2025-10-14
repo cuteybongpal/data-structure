@@ -99,10 +99,18 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+//손자가 있는지 없는지 확인만 하면 댐.
 int hasGreatGrandchild(BTNode *node)
 {
-	/* add your code here */
+    if (node == NULL)
+        return -1;
+	int leftdepth = hasGreatGrandchild(node->left) + 1;
+    int rightdepth = hasGreatGrandchild(node->right) + 1;
+    if (leftdepth >= 3 || rightdepth >= 3)
+        printf("%d\n", node->item);
+    if (leftdepth > rightdepth)
+        return leftdepth;
+    return rightdepth;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
