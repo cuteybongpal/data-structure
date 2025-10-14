@@ -102,7 +102,22 @@ int main()
 
 int smallestValue(BTNode *node)
 {
-	/* add your code here */
+    //노드가 NULL이면 int의 최대값 반환.
+    if (node == NULL)
+        return 2147483647;    
+    //왼쪽 자식의 최소값 찾기
+    int left = smallestValue(node->left);
+    //오른쪽 자식의 최소값 찾기
+    int right = smallestValue(node->right);
+    //노드의 item
+    int smallVal = node->item;
+
+    //가장 작은 값 반환
+    if (left < smallVal)
+        smallVal = left;
+    if (right < smallVal)
+        smallVal = right;
+    return smallVal;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
