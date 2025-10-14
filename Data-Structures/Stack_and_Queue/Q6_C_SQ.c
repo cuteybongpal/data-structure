@@ -111,7 +111,20 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	//초기값
+	int item = 0;
+	int size = s->ll.size;
+	//스택의 크기만큼 반복(최대 반복 횟수)
+	for (int i = 0; i < size; i++)
+	{
+		//스택의 원소의 값을 가져옴. 원소를 없애주진 않음
+		item = peek(s);
+		//item이 value와 같다면 break를 걸어줌
+		if (item == value)
+			break;
+		//같지 않다면 원소를 지워줌.
+		pop(s);
+	}	
 }
 
 //////////////////////////////////////////////////////////////////////////////////
