@@ -104,7 +104,61 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	//로컬 스택 선언
+	Stack s;
+	s.ll.size = 0;
+	s.ll.head = NULL;
+
+	for (int i = 0; i < 256; i++) 
+	{
+		//왼쪽 볼따구가 나왔을 때, 해당 문자에 해당하는 정수 하나를 넣어줌.
+		if (expression[i] == '(')
+		{
+			push(&s, (int)'(');
+			continue;
+		}
+		if (expression[i] == '[')
+		{
+			push(&s, (int)'[');
+			continue;
+		}
+		if (expression[i] == '{')
+		{
+			push(&s, (int)'{');
+			continue;
+		}
+		//오른쪽 볼따구가 나왔을 때, 스택의 값을 pop해줘 char로 캐스팅 해준 뒤,
+		//나온 볼따구가 자신과 다른 타입의 볼따구 일때, 0을 반환한다.
+		if (expression[i] == ')')
+		{
+			if (isEmptyStack(&s))
+				return 0;
+			char c = (char)pop(&s);
+			if (c != '(')
+				return 0;
+			continue;
+		}
+		if (expression[i] == ']')
+		{
+			if (isEmptyStack(&s))
+				return 0;
+			char c = (char)pop(&s);
+			if (c != '[')
+				return 0;
+			continue;
+		}
+		if (expression[i] == '}')
+		{
+			if (isEmptyStack(&s))
+				return 0;
+			char c = (char)pop(&s);
+			if (c != '{')
+				return 0;
+			continue;
+		}
+	}
+	//위 과정이 전부 끝난 후, 스택이 비어져 있다면, 제대로 짝이 맞는 것이기 때문에 1을 반환. 아니면 0을 반환한다.
+	return isEmptyStack(&s);
 }
 
 ////////////////////////////////////////////////////////////
