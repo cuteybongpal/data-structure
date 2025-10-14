@@ -87,10 +87,29 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+//이거 진짜 개 빡치네
 void inOrderTraversal(BSTNode *root)
 {
-	 /* add your code here */
+	BSTNode* cur = root;
+	Stack s;
+	s.top = NULL;
+	
+	//스택이 비고, cur가 null될때까지 반복
+	while(cur != NULL || isEmpty(&s) == 0)
+	{
+		//가능한 최대한 왼쪽으로 이동.
+		while (cur != NULL)
+		{
+			push(&s, cur);
+			cur = cur->left;
+		}
+		//가장 왼쪽에 있는 원소 출력.
+		cur = pop(&s);
+		printf("%d ", cur->item);
+		//오른쪽으로 한칸 감.
+		cur = cur->right;
+	}
+	//이 과정을 반복해 중위 순회를 함.
 }
 
 ///////////////////////////////////////////////////////////////////////////////

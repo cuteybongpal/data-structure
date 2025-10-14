@@ -88,10 +88,24 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+//스택으로 풀 때, push pop을 어떻게 하느냐가 굉장히 중요해짐.
 void preOrderIterative(BSTNode *root)
 {
-	 /* add your code here */
+	Stack s;
+	s.top = NULL;
+	push(&s, root);
+	//스택의 루트를 기준으로 right와 left를 스택에 넣어줌.
+	//그것들을 pop해서 모든 탐색을 완료함.
+	while (isEmpty(&s) == 0)
+	{
+		BSTNode* node = pop(&s);
+		printf("%d ", node->item);
+		//후입 선출이기 때문에 오른쪽 먼저 넣어줌.
+		if (node->right != NULL)
+			push(&s, node->right);
+		if (node->left != NULL)
+			push(&s, node->left);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
