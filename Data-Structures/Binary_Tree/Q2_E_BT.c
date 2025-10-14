@@ -41,6 +41,7 @@ BTNode* pop(Stack *stk);
 void printTree(BTNode *node);
 void removeAll(BTNode **node);
 
+
 ///////////////////////////// main() /////////////////////////////////////////////
 
 int main()
@@ -95,11 +96,19 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int maxHeight(BTNode *node)
-
 {
-    /* add your code here */
+    //값이 NULL이면 -1리턴
+    if (node == NULL)
+        return -1;
+    //왼쪽 자식의 height 
+    int left = maxHeight(node->left) + 1;
+    //오른쪽 자식의 height
+    int right = maxHeight(node->right) + 1;
+    //더큰 값을 리턴
+    if (left > right)
+        return left;
+    return right;
 }
-
 ///////////////////////////////////////////////////////////////////////////////////
 
 BTNode *createBTNode(int item){
