@@ -101,9 +101,21 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int sumOfOddNodes(BTNode *node)
-
 {
-    /* add your code here */
+    //노드가 NULL이면 리턴
+    if (node == NULL)
+        return 0;
+    //합계
+    int sum = 0;
+    //노드의 아이템이 홀수면 대입.
+    if (node->item % 2 != 0)
+        sum = node->item;
+    //왼쪽 자식의 홀수값들의 합을 더해줌.
+    sum += sumOfOddNodes(node->left);
+    //오른쪽 자식의 홀수값들의 합을 더해줌.
+    sum += sumOfOddNodes(node->right);
+    //값 리턴.
+    return sum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
