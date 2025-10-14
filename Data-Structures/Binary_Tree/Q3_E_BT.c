@@ -101,7 +101,17 @@ int main()
 int countOneChildNodes(BTNode *node)
 
 {
-    /* add your code here */
+    int childCount  = 0;
+    //자식이 하나일때 자식이 하나인 노드의 개수 1을 증가시킴.
+    if ((node->left == NULL && node->right != NULL) || (node->left != NULL && node->right == NULL))
+        childCount = 1;
+    //왼쪽 자식이 있다면 자식이 하나인 노드의 개수를 더해줌.
+    if (node->left != NULL)
+        childCount += countOneChildNodes(node->left);
+    //오른쪽 자식이 있다면 자식이 하나인 노드의 개수를 더해줌.
+    if (node->right != NULL)
+        childCount += countOneChildNodes(node->right);
+    return childCount;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
