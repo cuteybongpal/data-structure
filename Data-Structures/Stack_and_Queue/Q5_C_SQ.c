@@ -106,10 +106,19 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////
-
+//재귀 함수임
 void recursiveReverse(Queue *q)
 {
-/* add your code here */
+	//큐가 비어 있으면 리턴 기저조건임
+	if (isEmptyQueue(q) == 1)
+		return;
+	//dequeue를 해준 후, 원소 저장.
+	int item = dequeue(q);
+	//재귀하기
+	recursiveReverse(q);
+	//아이템을 다시 넣어줌.
+	//가장 뒤에 있는 원소부터 넣어주기 때문에, reverse가 됨.
+	enqueue(q, item);
 }
 
 //////////////////////////////////////////////////////////////////
